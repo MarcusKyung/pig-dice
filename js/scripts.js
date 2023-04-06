@@ -1,45 +1,94 @@
-function Player(name){
-  this.name = name;
-  this.rollScore = 0;
-  this.totalScore = 0;
+//Game setup/variables:
+let player1 = {
+  turnScore: 0,
+  gameScore: 0,
+  isActive: true,
 };
 
-function Game(){
-  this.players = [player1, player2]
+let player2 = {
+  turnScore: 0,
+  gameScore: 0,
+  isActive: false,
+};
+
+function swapPlayers(){
+  if (player1.isActive === true) {
+    player1.isActive = false;
+    player2.isActive = true;
+  } else if (player1.isActive === false) {
+    player1.isActive = true;
+    player2.isActive = false;
+  }
+};
+
+function rolledOne(){
+  player1.gameScore = player1.gameScore + player1.turnScore;
+  document.getElementById("p1Total").innerText = "Player 1 Game Total: "+ player1.gameScore;
+  swapPlayers()
+  checkGameOver()
 }
 
-let player1 = new Player("player1");
-let player2 = new Player("player2");
+function hold(event){
+  if (player1.isActive === true) {
+  player1.gameScore = player1.gameScore + player1.turnScore;
+  document.getElementById("p1Total").innerText = "Player 1 Game Total: " + player1.gameScore;
+  player1.turnScore = 0;
+  document.getElementById("p1Turn").innerText = "Player 1 Turn Total: "+ player1.turnScore;
+  swapPlayers()
+  checkGameOver()
+  } else if (player2.isActive === true) {
+    player2.gameScore = player2.gameScore + player2.turnScore;
+    document.getElementById("p2Total").innerText = "Player 2 Game Total: " + player2.gameScore;
+    player2.turnScore = 0;
+    document.getElementById("p2Turn").innerText = "Player 2 Turn Total: "+ player2.turnScore;
+    swapPlayers()
+    checkGameOver()
+  }
+} 
 
-let newGame = new Game();
+function checkGameOver() {
+  if (player1.gameScore >= 100) {
+    document.getElementById("gameOver").innerText = "Game Over! Player 1 wins!";
+    document.querySelector("div#rollOption").removeEventListener("click", rollDice);
+    document.querySelector("div#holdOption").removeEventListener("click", hold);
+  } 
+  else if (player2.gameScore >= 100) {
+    document.getElementById("gameOver").innerText = "Game Over! Player 2 wins!";
+    document.querySelector("div#rollOption").removeEventListener("click", rollDice);
+    document.querySelector("div#holdOption").removeEventListener("click", hold);
+  }
+}
 
-function switchPlayers() {};
-
-function hold(event) {};
-
-
-/////////////////
-
-function diceCalculation(min, max) {
-  min = Math.ceil(1);
-  max = Math.floor(6);
-  return Math.floor(Math.random() * (max - min + 1) + min); 
+function diceCalculation() {
+  return Math.floor(Math.random() * 6) + 1; 
 };
 
 function rollDice(event) {
   const currentRoll = diceCalculation();
   console.log(currentRoll);
-  logRolls(currentRoll);
-  totalRoll += currentRoll;
-  console.log("Your Total Points this round " + totalRoll);
+  document.getElementById("currentDiceRoll").innerText = "You rolled a: " + currentRoll;
+  if (player1.isActive === true){
+    if (currentRoll !== 1) {
+      player1.turnScore = player1.turnScore + currentRoll;
+      document.getElementById("p1Turn").innerText = "Player 1 Turn Total: "+ player1.turnScore;
+    } else {
+      player1.turnScore = 0
+      document.getElementById("p1Turn").innerText = "Player 1 Turn Total: "+ player1.turnScore;
+      rolledOne();
+    }
+  } else if (player1.isActive === false) {
+    if (currentRoll !== 1) {
+      player2.turnScore = player2.turnScore + currentRoll;
+      document.getElementById("p2Turn").innerText = "Player 2 Turn Total: "+ player2.turnScore;
+    } else {
+      player2.turnScore = 0
+      document.getElementById("p2Turn").innerText = "Player 2 Turn Total: "+ player2.turnScore;
+      rolledOne();
+    }
+  }
 };
 
-/////////////////
-
-function startGame(event) {};
-
 window.addEventListener("load", function (){
-  document.querySelector("div#startOption").addEventListener("click", startGame);
   document.querySelector("div#rollOption").addEventListener("click", rollDice);
-  document.querySelector("div#rollOption").addEventListener("click", hold);
+  document.querySelector("div#holdOption").addEventListener("click", hold);
 });
