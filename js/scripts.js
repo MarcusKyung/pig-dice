@@ -1,38 +1,45 @@
-// function Score(player, score) {
-//   this.player = player;
-//   this.release = release;
-// }
+function Player(name){
+  this.name = name;
+  this.rollScore = 0;
+  this.totalScore = 0;
+};
 
-// Score.prototype.rollDice = function() {
-// let price = 0
-// if (this.release === "rush" || this.release === "tenet"){
-//   price = price + 8;
-// } else {
-//   price = price + 10;
-// }
+function Game(){
+  this.players = [player1, player2]
+}
 
-// if (this.time === "day"){
-//   price = price * 1.5;
-// } 
+let player1 = new Player("player1");
+let player2 = new Player("player2");
 
-// if (this.age === "senior"){
-//   price = price - 2;
-// } else if (this.age === "child"){
-//   price = price -1;
-// } return price;
-// };
+let newGame = new Game();
+
+function switchPlayers() {};
+
+function hold(event) {};
+
+
+/////////////////
 
 function diceCalculation(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
+  min = Math.ceil(1);
+  max = Math.floor(6);
   return Math.floor(Math.random() * (max - min + 1) + min); 
-}
+};
 
 function rollDice(event) {
-  const currentRoll = diceCalculation(1,6);
-  return currentRoll;
-}
+  const currentRoll = diceCalculation();
+  console.log(currentRoll);
+  logRolls(currentRoll);
+  totalRoll += currentRoll;
+  console.log("Your Total Points this round " + totalRoll);
+};
+
+/////////////////
+
+function startGame(event) {};
 
 window.addEventListener("load", function (){
-  document.querySelector("div#option").addEventListener("click", rollDice);
+  document.querySelector("div#startOption").addEventListener("click", startGame);
+  document.querySelector("div#rollOption").addEventListener("click", rollDice);
+  document.querySelector("div#rollOption").addEventListener("click", hold);
 });
