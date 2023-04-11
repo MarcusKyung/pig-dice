@@ -22,10 +22,17 @@ function swapPlayers(){
 };
 
 function rolledOne(){
-  player1.gameScore = player1.gameScore + player1.turnScore;
-  document.getElementById("p1Total").innerText = "Player 1 Game Total: "+ player1.gameScore;
-  swapPlayers()
-  checkGameOver()
+  if (player1.isActive === true) {
+    player1.gameScore = player1.gameScore + player1.turnScore;
+    document.getElementById("p1Total").innerText = "Player 1 Game Total: "+ player1.gameScore;
+    swapPlayers()
+    checkGameOver()
+  } else if (player1.isActive === false) {
+    player2.gameScore = player2.gameScore + player2.turnScore;
+    document.getElementById("p2Total").innerText = "Player 2 Game Total: "+ player2.gameScore;
+    swapPlayers()
+    checkGameOver()
+  } 
 }
 
 function hold(event){
