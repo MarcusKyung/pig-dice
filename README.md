@@ -12,7 +12,7 @@
 
 ## Description
 
-_{This is a detailed description of your application. Give as much detail as needed to explain what the application does as well as any other information you want users or other developers to have.}_
+_This application allows the user to play the dice game, pig-dice. This game is played by rolling a dice which yields a player points. If a one is rolled the player does not win any points. A player may choose to end their turn early, or 'hold' their points. The first player to 100 points is the winner_
 
 ## Setup/Installation Requirements
 
@@ -21,8 +21,6 @@ _{This is a detailed description of your application. Give as much detail as nee
 * _Open index.html in your web browser_
 * _Play "pig dice" by following onscreen instructions._
 * _Reload page when game concludes to play again._
-
-_{Leave nothing to chance! You want it to be easy for potential users, employers and collaborators to run your app. Do I need to run a server? How should I set up my databases? Is there other code this application depends on? We recommend deleting the project from your desktop, re-cloning the project from GitHub, and writing down all the steps necessary to get the project working again.}_
 
 ## Known Bugs
 
